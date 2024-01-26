@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Map and restaurants</title>
+    
+    <link rel="stylesheet" href="map.css"> 
+    <script src="map.js"></script>
+    <style>@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;800&display=swap');
+    </style>
+</head>
+<body>
+    <div class="map-container" id="map-container">
+        <!-- Mapa de Google en la parte superior -->
+        <div id="map"></div>
+    </div>
+
+    <div class="recommendations-container">
+        
+        <h2>Restaurants Nearby</h2>
+        <ul id="restaurant-list">
+            <!-- Aquí se cargarán las recomendaciones -->
+        </ul>
+    </div>
+<!-- Agrega esto después de la sección del mapa en map.html -->
+<div class="restaurants-carousel" id="restaurantsCarouselMap">
+    <div class="places-container" id="placesContainerMap">
+        <!-- Aquí se cargarán las recomendaciones de restaurantes -->
+    </div>
+</div>
+
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB4Bn5zZysLJH14FD0H4EmXwSqs7dR-PJs&callback=initMap" async defer></script>
+    
+    <script src="map.js"></script>
+</body>
+</html>

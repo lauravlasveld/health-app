@@ -1,0 +1,197 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <script src="https://kit.fontawesome.com/f3a2732ce8.js" crossorigin="anonymous"></script>
+    <title>Health App</title>
+    <style>@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;800&display=swap');
+    </style>
+
+  </head>
+
+  <body>
+   <div class="intro">
+
+        <div class="user">
+          <img src="img/men.png" alt="">
+          <p>Hello, <br> John Hunt</p>
+          <i class="fa-solid fa-bars"></i>
+        </div>
+
+          <div class="title">
+          <p>Find your best <br> restaurant!</p>
+        
+
+          </div>
+       
+
+        <div class="search">
+          <div class="iconSearch"> <i class="fa-solid fa-magnifying-glass"></i>   </div>
+         
+            <p>Search cafe, restaurant ect.</p>
+            
+          </div>
+
+   </div>
+    <div class="categories">
+
+          <p id="bookings">Bookings</p>
+          <p>Experiences</p>
+          <p>Delivery</p>
+
+    </div>
+        
+
+     <div class="available">
+
+        <p>Available for dinner </p>
+        <div class="iconArrow">
+          <i class="fa-solid fa-arrow-right" style="color: #eeb249;"></i>
+        </div>
+        
+
+    </div>
+    <template>
+      <div>
+        <input v-model="inputData" placeholder="Ingrese datos..." />
+        <button @click="getData">Obtener Datos</button>
+        <button @click="submitData">Enviar Datos</button>
+        <div v-for="item in serverData" :key="item.id">
+          {{ item }}
+        </div>
+        <button @click="addRestaurant">Añadir Restaurante</button>
+      </div>
+    </template>
+
+    <div class="restaurants-carousel" id="restaurantsCarousel">
+      <div class="places-container" id="placesContainer">
+        <div class="place">
+
+          <img src="img/restaurant1.jpeg" alt="">
+
+          <div class="info">
+              <h1> The Capital Grille</h1>
+              <p>23 Garage Avenue, NY</p>
+          </div>
+          <div class="ratings">
+               <i class="fa-solid fa-star" style="color: #000000;"></i>
+               <i class="fa-solid fa-star" style="color: #000000;"></i>
+               <i class="fa-solid fa-star" style="color: #000000;"></i>
+               <i class="fa-solid fa-star" style="color: #000000;"></i>
+               <i class="fa-solid fa-star-half-stroke" style="color: #000000;"></i>
+
+          </div>
+        
+        </div>
+
+
+
+
+        <div class="place">
+
+          <img src="img/restaurant2.jpg" alt="">
+
+          <div class="info">
+              <h1> Trattoria Rufino</h1>
+              <p>56 Demrage Square, NY</p>
+          </div>
+          <div class="ratings">
+               <i class="fa-solid fa-star" style="color: #000000;"></i>
+               <i class="fa-solid fa-star" style="color: #000000;"></i>
+               <i class="fa-solid fa-star" style="color: #000000;"></i>
+               <i class="fa-solid fa-star-half-stroke" style="color: #000000;"></i>
+               <i class="fa-regular fa-star" style="color: #000000;"></i>
+          </div>
+        </div>
+      </div>
+
+
+ 
+
+
+    </div>
+  
+    <footer>
+      <div class="iconFooter">
+        <i class="fa-solid fa-house" style="color: #000000;"></i>
+        <p id="Home">Home</p>
+      </div>
+
+      <div class="iconFooter">
+        <i class="fa-regular fa-heart" style="color: #a0a0a0;"></i>
+        <p>Saved</p>
+      </div>
+
+      <div class="iconFooter">
+        <a href="map.html">
+
+          <i class="fa-regular fa-map" style="color: #a0a0a0;"></i>
+          <p>Map</p>
+        </a>
+       
+      </div>
+
+      <div class="iconFooter">
+        <i class="fa-regular fa-user" style="color: #a0a0a0;"></i>
+        <p>Profile</p>
+      </div>
+
+      <div class="iconFooter">
+        <i class="fa-solid fa-gear" style="color: #a0a0a0;"></i>
+        <p>Settings</p>
+      </div>
+
+    </footer>
+
+
+
+
+    <script type="module" src="main.js"></script>
+    <script>
+      export default {
+        data() {
+          return {
+            inputData: '',
+            serverData: [],
+          };
+        },
+        methods: {
+          async getData() {
+            try {
+              const response = await fetch('http://localhost:3000/api/restaurant-names');
+              const data = await response.json();
+              this.serverData = data;
+            } catch (error) {
+              console.error('Error fetching data:', error);
+            }
+          },
+          async submitData() {
+            try {
+              const response = await fetch('http://localhost:3000/api/add-restaurant', {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ name: this.inputData }),
+              });
+              const result = await response.json();
+              console.log(result);
+      
+              // After posting data, refresh the displayed data
+              this.getData();
+            } catch (error) {
+              console.error('Error submitting data:', error);
+            }
+          },
+          async addRestaurant() {
+            // Implement logic to add restaurant names as needed
+            // For example, you might show a form to input the restaurant name and call the API to add it
+          },
+        },
+      };
+      </script>
+  </body>
+</html>
